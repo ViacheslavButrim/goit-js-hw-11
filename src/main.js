@@ -1,11 +1,10 @@
-// js/main.js
 import { getImagesByQuery } from './js/pixabay-api.js';
 import { createGallery, clearGallery, showLoader, hideLoader } from './js/render-functions.js';
 
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-// Селектори
+// selectors
 const form = document.querySelector('.form');
 const input = form.querySelector('input[name="search-text"]');
 
@@ -16,7 +15,7 @@ function onSearch(event) {
 
   const query = input.value.trim();
 
-  // Перевірка на порожній рядок перед запитом
+  // checking
   if (!query) {
     iziToast.error({
       title: 'Warning',
@@ -26,14 +25,16 @@ function onSearch(event) {
     return;
   }
 
-  // Починаємо пошук: показати лоадер, очистити галерею
+  // starting a search
   showLoader();
   clearGallery();
+   
+  // claer a field
+    form.reset();
 
-  // Використання then/catch згідно з ТЗ
   getImagesByQuery(query)
     .then(data => {
-      // data — об'єкт відповіді (має властивість hits — масив зображень)
+      // hits — array of images
       const images = data.hits;
 
       if (!Array.isArray(images) || images.length === 0) {
@@ -45,7 +46,7 @@ function onSearch(event) {
         return;
       }
 
-      // Якщо є результати — створюємо галерею
+      // create a gallery if we have a result
       createGallery(images);
 
       iziToast.success({
@@ -55,7 +56,7 @@ function onSearch(event) {
       });
     })
     .catch(error => {
-      // Обробка помилок запиту
+      // query error handling
       console.error('Pixabay API error:', error);
       iziToast.error({
         title: 'Error',
@@ -64,7 +65,7 @@ function onSearch(event) {
       });
     })
     .finally(() => {
-      // Скрити лоадер в будь-якому випадку
+      // Hide the loader
       hideLoader();
     });
 }
