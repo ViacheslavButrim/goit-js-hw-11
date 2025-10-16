@@ -8,16 +8,22 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
+    <!-- Форма пошуку -->
+<form class="form">
+  <label >
+    <input class="input-field" type="text" name="search-text" placeholder="Search images..." required />
+  </label>
+  <button class="btn" type="submit">Search</button>
+</form>
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+<!-- Галерея (порожній список, куди додасться розмітка) -->
+<div class="image-container">
+  <ul class="gallery"></ul>
+</div>
 
-    <load src="./partials/footer.html" />
-
+<div class="loader-backdrop" aria-hidden="true">
+  <span class="loader"></span>
+</div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
